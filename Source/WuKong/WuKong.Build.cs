@@ -16,7 +16,9 @@ public class WuKong : ModuleRules
 			"InputCore", 
 			"EnhancedInput",
 			"AnimGraphRuntime", 
-			"GameplayAbilities"
+			"GameplayAbilities",
+			"GameplayTags",
+			"GameplayTasks"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

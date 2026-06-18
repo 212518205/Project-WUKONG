@@ -4,7 +4,9 @@
 #include "Player/Controller/WuKongPlayerController.h"
 #include "UserSettings/EnhancedInputUserSettings.h"
 #include "EnhancedInputSubsystems.h"
+#include "WuKongDebugHelper.h"
 #include "Component/Input/WuKongInputComponent.h"
+#include "Player/WuKongCharacter.h"
 
 
 void AWuKongPlayerController::BeginPlay()
@@ -25,6 +27,18 @@ void AWuKongPlayerController::BeginPlay()
 	}
 }
 
+UPlayerAbilitySystemComponent* AWuKongPlayerController::GetAbilitySystemComponent() 
+{
+	if (!CachedPlayerASC)
+	{
+		if (const AWuKongCharacter* WuKong = GetPawn<AWuKongCharacter>())
+		{
+			CachedPlayerASC = WuKong->GetAbilitySystemComponent();
+		}
+	}
+	return CachedPlayerASC;
+}
+
 void AWuKongPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -32,6 +46,10 @@ void AWuKongPlayerController::SetupInputComponent()
 	UWuKongInputComponent* WuKongInputComp = CastChecked<UWuKongInputComponent>(InputComponent);
 	WuKongInputComp->BindAction(IA_Move, ETriggerEvent::Triggered, this, &ThisClass::Move);
 	WuKongInputComp->BindAction(IA_Look, ETriggerEvent::Triggered, this, &ThisClass::Look);
+	
+	WuKongInputComp->BindAbilityInputAction(InitialAbilityData, this, &ThisClass::AbilityInputPressed,
+	                                        &AWuKongPlayerController::AbilityInputReleased);
+
 }
 
 // ReSharper disable CppMemberFunctionMayBeConst
@@ -57,4 +75,13 @@ void AWuKongPlayerController::Look(const FInputActionValue& Value)
 	
 	AddPitchInput(InputAxisVector.Y);
 	AddYawInput(InputAxisVector.X);
+}
+
+void AWuKongPlayerController::AbilityInputPressed(FGameplayTag InputTag)
+{
+	GetAbilitySystemComponent()->OnAbilityInputPressed(InputTag);
+}
+
+void AWuKongPlayerController::AbilityInputReleased(FGameplayTag InputTag)
+{
 }

@@ -11,6 +11,8 @@
  * 
  */
 
+class UInputAction;
+class UGameplayEffect;
 class UGameplayAbility;
 
 USTRUCT()
@@ -24,6 +26,9 @@ struct FAbilityInfo
 	UPROPERTY(EditDefaultsOnly)
 	FGameplayTag AbilityTag;
 	
+	UPROPERTY(EditDefaultsOnly)
+	TObjectPtr<UInputAction> IA_Ability;
+	
 };
 
 UCLASS()
@@ -31,7 +36,11 @@ class WUKONG_API UInitialAbilityData : public UDataAsset
 {
 	GENERATED_BODY()
 	
-protected:
+public:
+	UPROPERTY(EditDefaultsOnly, meta = (ForceInlineRow, Categories = "UI.WidgetStack"))
+	TArray<FAbilityInfo> InitialAbilities;
 	
+	UPROPERTY(EditDefaultsOnly)
+	TArray<TSubclassOf<UGameplayEffect>> InitialEffect;
 	
 };

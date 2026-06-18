@@ -7,6 +7,9 @@
 #include "PlayerAbilitySystemComponent.generated.h"
 
 
+class UInitialAbilityData;
+class AAbilityCharacter;
+
 UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class WUKONG_API UPlayerAbilitySystemComponent : public UWuKongAbilitySystemComponent
 {
@@ -14,5 +17,11 @@ class WUKONG_API UPlayerAbilitySystemComponent : public UWuKongAbilitySystemComp
 
 public:
 	UPlayerAbilitySystemComponent();
+	
+	virtual AAbilityCharacter* GetOwningCharacter() const override;
+	
+	void OnAbilityInputPressed(const FGameplayTag& InputTag);
+	void OnAbilityInputReleased(const FGameplayTag& InputTag);
+
 
 };

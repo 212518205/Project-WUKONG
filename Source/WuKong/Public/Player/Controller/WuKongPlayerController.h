@@ -3,9 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/PlayerController.h"
 #include "WuKongPlayerController.generated.h"
 
+class UInitialAbilityData;
+class UPlayerAbilitySystemComponent;
 struct FInputActionValue;
 class UInputMappingContext;
 class UInputAction;
@@ -20,6 +23,7 @@ class WUKONG_API AWuKongPlayerController : public APlayerController
 	
 public:
 	virtual void BeginPlay() override;
+	UPlayerAbilitySystemComponent* GetAbilitySystemComponent() ; 
 	
 protected:
 	virtual void SetupInputComponent() override;
@@ -38,4 +42,14 @@ protected:
 	
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
+	
+	void AbilityInputPressed(FGameplayTag InputTag);
+	void AbilityInputReleased(FGameplayTag InputTag);
+	
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UPlayerAbilitySystemComponent> CachedPlayerASC;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "GAS")
+	TObjectPtr<UInitialAbilityData> InitialAbilityData;
+	
 };

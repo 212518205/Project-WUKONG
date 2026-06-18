@@ -5,10 +5,11 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
+#include "GAS/ASC/PlayerAbilitySystemComponent.h"
 #include "WuKongPlayerState.generated.h"
 
-class UAbilitySystemComponent;
 
+class UWuKongAttributeSet;
 /**
  * 
  */
@@ -18,10 +19,15 @@ class WUKONG_API AWuKongPlayerState : public APlayerState, public IAbilitySystem
 	GENERATED_BODY()
 	
 public:
-	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	AWuKongPlayerState();
+	virtual UPlayerAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UWuKongAttributeSet* GetWuKongAttributeSet() const;
 	
 protected:
 	UPROPERTY(BlueprintReadWrite, Category = "GAS")
-	TObjectPtr<UAbilitySystemComponent> ASC;
+	TObjectPtr<UPlayerAbilitySystemComponent> WuKongASC;
+	
+	UPROPERTY(BlueprintReadWrite, Category = "GAS")
+	TObjectPtr<UWuKongAttributeSet> WuKongAS;
 	
 };

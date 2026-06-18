@@ -3,7 +3,22 @@
 
 #include "Player/WuKongPlayerState.h"
 
-UAbilitySystemComponent* AWuKongPlayerState::GetAbilitySystemComponent() const
+#include "GAS/WuKongAttributeSet.h"
+
+AWuKongPlayerState::AWuKongPlayerState()
 {
-	return ASC;
+	WuKongAS = CreateDefaultSubobject<UWuKongAttributeSet>(TEXT("WukongAttributeSet"));
+	WuKongASC = CreateDefaultSubobject<UPlayerAbilitySystemComponent>(TEXT("WuKongASC"));
+	WuKongASC->SetIsReplicated(true);
+	WuKongASC->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
+}
+
+UPlayerAbilitySystemComponent* AWuKongPlayerState::GetAbilitySystemComponent() const
+{
+	return WuKongASC;
+}
+
+UWuKongAttributeSet* AWuKongPlayerState::GetWuKongAttributeSet() const
+{
+	return WuKongAS;
 }

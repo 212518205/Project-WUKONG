@@ -16,6 +16,16 @@ void AAbilityCharacter::BeginPlay()
 	
 }
 
+UWuKongAbilitySystemComponent* AAbilityCharacter::GetAbilitySystemComponent() const
+{
+	return nullptr;
+}
+
+bool AAbilityCharacter::DoesActorAttackable() 
+{
+	return false;
+}
+
 void AAbilityCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

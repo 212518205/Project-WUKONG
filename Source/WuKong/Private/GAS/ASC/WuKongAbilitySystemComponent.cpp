@@ -35,7 +35,7 @@ void UWuKongAbilitySystemComponent::GiveAbilityByClass(const TSubclassOf<UGamepl
 	AbilitySpec.SourceObject = GetAvatarActor();
 	if (AbilityTag.IsValid())
 	{
-		AbilitySpec.DynamicAbilityTags.AddTag(AbilityTag);
+		AbilitySpec.GetDynamicSpecSourceTags().AddTag(AbilityTag);
 	}
 	
 	GiveAbility(AbilitySpec);

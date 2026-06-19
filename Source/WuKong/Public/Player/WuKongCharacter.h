@@ -12,7 +12,7 @@ class USpringArmComponent;
 class UCameraComponent;
 
 UCLASS()
-class WUKONG_API AWuKongCharacter : public AAbilityCharacter, public IAbilitySystemInterface
+class WUKONG_API AWuKongCharacter : public AAbilityCharacter
 {
 	GENERATED_BODY()
 
@@ -22,20 +22,27 @@ public:
 	virtual void BeginPlay() override;
 	virtual void PossessedBy(AController* NewController) override;
 	virtual void OnRep_PlayerState() override;
-	virtual  UPlayerAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	UBoxComponent* GetWeaponBoxComponent();
+	virtual  UPlayerAbilitySystemComponent* GetAbilitySystemComponent() const override;
 
+	/***   ...IAttackableInterface Interface Begin...   ***/
+	virtual bool DoesActorAttackable() override;
+	/***   ...IAttackableInterface Interface End...     ***/
+	
 	UPROPERTY(EditDefaultsOnly, Category = "GAS")
 	TObjectPtr<UInitialAbilityData> InitialAbilityData;
-protected:
-	void InitCharacterInfo();
 	
+	UPROPERTY()
+	TArray<AActor*> HitActor;
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Component")
 	TObjectPtr<UBoxComponent> WeaponBox;
 	
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UPlayerAbilitySystemComponent> CachedPlayerASC;
+	
+protected:
+	void InitCharacterInfo();
 	
 	UFUNCTION()
 	void OnWeaponBeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,

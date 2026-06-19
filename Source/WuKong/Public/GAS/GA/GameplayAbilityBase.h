@@ -17,4 +17,12 @@ class WUKONG_API UGameplayAbilityBase : public UGameplayAbility
 	
 public:
 	virtual  AAbilityCharacter* GetOwningCharacter() const;
+	
+	UFUNCTION(BlueprintCallable, Category = "GAS")
+	FGameplayEffectSpecHandle MakeAttackGameEffectSpecHandle(const TSubclassOf<UGameplayEffect> EffectClass,
+		const FGameplayTag DamageType, const float BaseDamageMultiplier) const;
+	
+	UFUNCTION(BlueprintCallable, Category = "GAS")
+	static FActiveGameplayEffectHandle ApplyGameEffectSpecHandleToTarget(AActor* TargetActor,
+		const FGameplayEffectSpecHandle& EffectSpecHandle);
 };

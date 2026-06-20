@@ -6,6 +6,9 @@
 #include "GAS/ASC/PlayerAbilitySystemComponent.h"
 #include "WuKongCharacter.generated.h"
 
+class UWuKongAttributeSet;
+class UWukongWidgetComponent;
+class UWidgetComponent;
 class UBoxComponent;
 class UInitialAbilityData;
 class USpringArmComponent;
@@ -24,6 +27,7 @@ public:
 	virtual void OnRep_PlayerState() override;
 	UBoxComponent* GetWeaponBoxComponent();
 	virtual  UPlayerAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UWuKongAttributeSet* GetWuKongAttributeSet() const { return CachedPlayerAS; }
 
 	/***   ...IAttackableInterface Interface Begin...   ***/
 	virtual bool DoesActorAttackable() override;
@@ -41,6 +45,12 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	TObjectPtr<UPlayerAbilitySystemComponent> CachedPlayerASC;
 	
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UWuKongAttributeSet> CachedPlayerAS;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Component")
+	TObjectPtr<UWukongWidgetComponent> WidgetComp;
+	
 protected:
 	void InitCharacterInfo();
 	
@@ -51,4 +61,6 @@ protected:
 	void OnWeaponEndOverlap(UPrimitiveComponent* OnComponentEndOverlap, AActor* OtherActor, 
 							UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 	
+	UFUNCTION(BlueprintCallable, Category = "UI")
+	void ShowDamage(float DamageTaken) const;
 };

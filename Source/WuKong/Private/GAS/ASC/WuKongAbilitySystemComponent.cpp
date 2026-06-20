@@ -4,6 +4,8 @@
 #include "GAS/ASC/WuKongAbilitySystemComponent.h"
 
 #include "WuKongDebugHelper.h"
+#include "FunctionLibrary/WuKongGameFunctionLibrary.h"
+#include "GAS/WuKongGameplayTag.h"
 #include "GAS/Data/InitialAbilityData.h"
 #include "Player/AbilityCharacter.h"
 
@@ -26,6 +28,12 @@ void UWuKongAbilitySystemComponent::InitializeCharacterAbility(UInitialAbilityDa
 		const FGameplayEffectContextHandle ContextHandle = MakeEffectContext();
 		FGameplayEffectSpecHandle SpecHandle = MakeOutgoingSpec(EffectClass, 1, ContextHandle);
 		ApplyGameplayEffectSpecToSelf(*SpecHandle.Data.Get());
+	}
+	
+	for (FGameplayTag& GameplayTag : InitialInfo->InitialGameplayTag)
+	{
+		if (!GameplayTag.IsValid())continue;
+		UWuKongGameFunctionLibrary::AddTagToActorIfNone(GetOwningCharacter(), Player::Ability::Attackable);
 	}
 }
 

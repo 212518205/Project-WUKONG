@@ -75,10 +75,8 @@ void UExecCalc_DamageTaken::Execute_Implementation(const FGameplayEffectCustomEx
 	if (UWuKongGameFunctionLibrary::CheckProbability(SourceCriticalChance))SourceAttack = SourceAttack * 2 * (1.f + SourceCriticalDamage);
 	SourceAttack -= TargetArmor;
 	
-	Debug::Print(TEXT("计算"));
 	if (SourceAttack >= 0)
 	{
-	Debug::Print(TEXT("有伤害"));
 		OutExecutionOutput.AddOutputModifier(
 			FGameplayModifierEvaluatedData(
 				AttributeCapture().DamageTakenProperty,

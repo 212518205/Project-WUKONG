@@ -7,13 +7,14 @@
 #include "Components/BoxComponent.h"
 #include "Player/WuKongCharacter.h"
 
+
 void UNotifyState_WeaponCollision::NotifyBegin(USkeletalMeshComponent* MeshComp, UAnimSequenceBase* Animation,
-                                               float TotalDuration, const FAnimNotifyEventReference& EventReference)
+												 float TotalDuration, const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyBegin(MeshComp, Animation, TotalDuration, EventReference);
-	
-	if (!MeshComp)return;
-	if (AWuKongCharacter* WuKong = MeshComp->GetOwner<AWuKongCharacter>())
+
+	if (!MeshComp) return;
+	if (AWuKongCharacter* WuKong = MeshComp->GetOwner<AWuKongCharacter>(); WuKong && WuKong->HasAuthority())
 	{
 		WuKong->HitActor.Empty();
 		WuKong->GetWeaponBoxComponent()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -24,9 +25,10 @@ void UNotifyState_WeaponCollision::NotifyEnd(USkeletalMeshComponent* MeshComp, U
 	const FAnimNotifyEventReference& EventReference)
 {
 	Super::NotifyEnd(MeshComp, Animation, EventReference);
-	if (!MeshComp)return;
-	if (AWuKongCharacter* WuKong = MeshComp->GetOwner<AWuKongCharacter>())
+	if (!MeshComp) return;
+	if (AWuKongCharacter* WuKong = MeshComp->GetOwner<AWuKongCharacter>(); WuKong && WuKong->HasAuthority())
 	{
+		Debug::Print(FString::Printf(TEXT("【碰撞OFF】%s"), *WuKong->GetName()));
 		WuKong->GetWeaponBoxComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
 }

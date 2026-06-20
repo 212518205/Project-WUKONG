@@ -16,6 +16,7 @@ class WUKONG_API UGameplayAbilityBase : public UGameplayAbility
 	GENERATED_BODY()
 	
 public:
+	UFUNCTION(BlueprintCallable)
 	virtual  AAbilityCharacter* GetOwningCharacter() const;
 	
 	UFUNCTION(BlueprintCallable, Category = "GAS")

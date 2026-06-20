@@ -18,7 +18,8 @@ public class WuKong : ModuleRules
 			"AnimGraphRuntime", 
 			"GameplayAbilities",
 			"GameplayTags",
-			"GameplayTasks"
+			"GameplayTasks",
+			"CommonUI"
 		});
 
 		PrivateDependencyModuleNames.AddRange(new string[] { });

@@ -40,15 +40,12 @@ bool UWuKongGameFunctionLibrary::DoseActorHaveTag(AActor* ToActor, const FGamepl
 	if (const UWuKongAbilitySystemComponent* TargetASC = TryGetAbilitySystemComponentFromActor(ToActor))
 	{
 		//return TargetASC->HasMatchingGameplayTag(InTag);
-		if (TargetASC->HasMatchingGameplayTag(InTag))
-		{
-			Debug::Print(TEXT("有标签"));
-			return true;
-		}
-		else
+		if (!TargetASC->HasMatchingGameplayTag(InTag))
 		{
 			Debug::Print(TEXT("无标签"));
+			return false;
 		}
+		return true;
 	}
 	Debug::Print(TEXT("无ASC无标签"));
 	return false;

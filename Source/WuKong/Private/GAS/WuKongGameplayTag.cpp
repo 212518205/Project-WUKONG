@@ -43,3 +43,11 @@ namespace Shared
 		UE_DEFINE_GAMEPLAY_TAG(BaseDamageMultiplier, "Shared.SetByCaller.BaseDamageMultiplier")
 	}
 }
+
+namespace GameplayCue
+{
+	namespace Shared
+	{
+		UE_DEFINE_GAMEPLAY_TAG(TakeHit, "GameplayCue.Character.TakeHit")
+	}
+}

@@ -43,4 +43,7 @@ public:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<TSubclassOf<UGameplayEffect>> InitialEffect;
 	
+	UPROPERTY(EditDefaultsOnly)
+	TArray<FGameplayTag> InitialGameplayTag;
+	
 };

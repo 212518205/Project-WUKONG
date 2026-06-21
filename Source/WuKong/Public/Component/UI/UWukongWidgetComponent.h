@@ -38,4 +38,7 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "GAS | Attribute")
 	float Health;
 	
+	UPROPERTY(BlueprintReadOnly, Category = "GAS | Attribute")
+	float TakenDamage;
+	
 };

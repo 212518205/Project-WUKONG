@@ -49,6 +49,13 @@ void UWukongWidgetComponent::BindCharacterInfoToUI(UPlayerAbilitySystemComponent
 			const float HealthPercent = MaxHealth > 0.f ? Health / MaxHealth : 0.f;
 			CachedHealthWidget->HealthBar->SetPercent(HealthPercent);
 		});
+	
+	PlayerASC->GetGameplayAttributeValueChangeDelegate(UWuKongAttributeSet::GetDamageTakenAttribute()).AddLambda(
+		[this](const FOnAttributeChangeData& Data)
+		{
+			TakenDamage = Data.NewValue;
+			ShowDamage(TakenDamage);
+		});
 }
 
 void UWukongWidgetComponent::ShowDamage(const float DamageTaken) const

@@ -34,7 +34,6 @@ void UWuKongAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 	}
 	if (const float Damage = GetDamageTaken(); Damage != 0.f && Data.EvaluatedData.Attribute == GetDamageTakenAttribute())
 	{
-		Debug::Print(TEXT("受到伤害") + FString::FromInt(Damage));
 		const float CurrentHealth = FMath::Clamp(GetHealth() - Damage, 0.f, GetMaxHealth());
 		SetHealth(CurrentHealth);
 		if (CurrentHealth <= 0.f)
@@ -43,25 +42,26 @@ void UWuKongAttributeSet::PostGameplayEffectExecute(const struct FGameplayEffect
 		}
 		else
 		{
-			// FGameplayEventData EventData;
-			// EventData.Instigator = Data.EffectSpec.GetContext().GetInstigator();
-			// EventData.Target = Data.Target.GetAvatarActor();
-			// EventData.EventMagnitude = Damage;
-			//
-			// UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
-			// 	Data.Target.GetAvatarActor(),
-			// 	Shared::Event::TakeHit,
-			// 	EventData
-			// );
+			FGameplayEventData EventData;
+			EventData.Instigator = Data.EffectSpec.GetContext().GetInstigator();
+			EventData.Target = Data.Target.GetAvatarActor();
+			EventData.EventMagnitude = Damage;
+			
+			UAbilitySystemBlueprintLibrary::SendGameplayEventToActor(
+				Data.Target.GetAvatarActor(),
+				Shared::Event::TakeHit,
+				EventData
+			);
 
 			/***   替代 SendGameplayEventToActor(TakeHit)  `BC@` ***/
-			FGameplayCueParameters CueParams;
-			CueParams.Instigator = Data.EffectSpec.GetContext().GetInstigator();
-			CueParams.NormalizedMagnitude = Damage;
-			CueParams.RawMagnitude = Damage;
-
-			Data.Target.AddGameplayCue(GameplayCue::Shared::TakeHit, CueParams);
+			// FGameplayCueParameters CueParams;
+			// CueParams.Instigator = Data.EffectSpec.GetContext().GetInstigator();
+			// CueParams.NormalizedMagnitude = Damage;
+			// CueParams.RawMagnitude = Damage;
+			//
+			// Data.Target.AddGameplayCue(GameplayCue::Shared::TakeHit, CueParams);
 		}
+		SetDamageTaken(Damage);
 	}
 }
 

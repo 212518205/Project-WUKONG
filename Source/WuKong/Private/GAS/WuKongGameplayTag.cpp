@@ -49,5 +49,29 @@ namespace GameplayCue
 	namespace Shared
 	{
 		UE_DEFINE_GAMEPLAY_TAG(TakeHit, "GameplayCue.Character.TakeHit")
+		UE_DEFINE_GAMEPLAY_TAG(Dead, "GameplayCue.Character.Dead")
+	}
+}
+
+namespace UI
+{
+	namespace Layer
+	{
+		UE_DEFINE_GAMEPLAY_TAG(GameHUD, "UI.Layer.GameHUD")
+		UE_DEFINE_GAMEPLAY_TAG(MainMenu, "UI.Layer.MainMenu")
+		UE_DEFINE_GAMEPLAY_TAG(PauseMenu, "UI.Layer.PauseMenu")
+		UE_DEFINE_GAMEPLAY_TAG(Inventory, "UI.Layer.Inventory")
+		UE_DEFINE_GAMEPLAY_TAG(Dialog, "UI.Layer.Dialog")
+		UE_DEFINE_GAMEPLAY_TAG(LoadingScreen, "UI.Layer.LoadingScreen")
+	}
+}
+
+namespace Session
+{
+	namespace Status
+	{
+		UE_DEFINE_GAMEPLAY_TAG(Hosting, "Session.Status.Hosting")
+		UE_DEFINE_GAMEPLAY_TAG(Searching, "Session.Status.Searching")
+		UE_DEFINE_GAMEPLAY_TAG(InSession, "Session.Status.InSession")
 	}
 }
